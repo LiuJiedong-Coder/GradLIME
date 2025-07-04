@@ -3,8 +3,8 @@ GradLIME: A CNN Local Interpretation Model Based on Feature Gradient Activation
 
 This project provides complete experimental code, environment dependency configuration, and running process for academic replication and secondary research.
 
-Paper Link£ [arXiv / IEEE / ACM / Springer link]  
-Authors£ [Jinwei Zhao£¬zhaojinwei@xaut.edu.cn; Jiedong Liu,1041674453@qq.com; Xinhong Hei*£¬heixinhong@xaut.edu.cn]  
+Paper Link [arXiv / IEEE / ACM / Springer link]  
+Authors [Jinwei Zhao, zhaojinwei@xaut.edu.cn; Jiedong Liu, 1041674453@qq.com; Xinhong Hei*, heixinhong@xaut.edu.cn]  
 Affiliation£ [Xi'an University of Technology CN]
 
 ---
@@ -66,7 +66,7 @@ cd GradLIME
 Place the dataset in the 'data/' directory.
 
 ```txt
-Download and Processing of ImageNet2012 Dataset?https://blog.csdn.net/weixin_47160526/article/details/132037269
+Download and Processing of ImageNet2012 Dataset: https://blog.csdn.net/weixin_47160526/article/details/132037269
 ```
 
 ### 3. Run the Code
@@ -123,3 +123,50 @@ results will be saved in '/results'
 |   Feature versus weight plot   |
 |:-------------------------------:|
 | ![](./DemoImage/f_w.png) |
+
+---
+
+## Quoting this paper
+If you have used the code of this project in your research, please cite our paper:
+
+```bibtex
+@article{LJD,
+  title={},
+  author={},
+  journal={Journal Name},
+  year={2025},
+  volume={xx},
+  number={yy},
+  pages={zz-zz},
+  publisher={Publisher}
+}
+```
+
+---
+
+
+## Frequently Asked Questions (FAQ)
+
+1. Q: What should I do if the dataset download fails? 
+A: Please confirm the network connection or use a domestic mirror, or contact the author for an alternative link.
+
+2. Q: Is there an error during GPU training? 
+A: Please confirm that the CUDA environment matches the PyTorch version.
+
+3. Q: Can the model structure in the code be modified?
+A: Sure, for custom modules, please refer to ` /Lime and /Pytorch grad_cam ` and ` /my_metrics.py`.
+
+
+## References
+
+https://arxiv.org/abs/1602.04938
+
+"Why Should I Trust You?": Explaining the Predictions of Any Classifier
+
+https://arxiv.org/abs/1610.02391
+
+Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization Ramprasaath R. Selvaraju, Michael Cogswell, Abhishek Das, Ramakrishna Vedantam, Devi Parikh, Dhruv Batra
+
+https://jmlr.org/papers/v24/22-0142.html
+
+Quantus: An Explainable AI Toolkit for Responsible Evaluation of Neural Network Explanations and Beyond
