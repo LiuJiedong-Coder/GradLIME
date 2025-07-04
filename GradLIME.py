@@ -148,7 +148,7 @@ if __name__ == '__main__':
 
 
 
-    from lime import lime_image
+    #from lime import lime_image
     from lime import lime_image_my
     #explainer = lime_image.LimeImageExplainer()  #源码
     explainer = lime_image_my.LimeImageExplainer()  #个人修改
