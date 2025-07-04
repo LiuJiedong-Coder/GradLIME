@@ -1,5 +1,5 @@
 # GradLIME
-GradLIME: A CNN Local Interpretation Model Based on Feature Gradient Activation1
+GradLIME: A CNN Local Interpretation Model Based on Feature Gradient Activation
 
 This project provides complete experimental code, environment dependency configuration, and running process for academic replication and secondary research.
 
@@ -114,7 +114,7 @@ results will be saved in '/results'
 
 ---
 
-## Partial Experimental Effect Display1
+## Partial Experimental Effect Display
 
 | explanation of different black box models | feature gradient activation of different feature layers |
 |--------|--------|
