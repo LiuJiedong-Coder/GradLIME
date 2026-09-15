@@ -1,5 +1,4 @@
 """
-
 Contains abstract functionality for learning locally linear sparse model.
 
 ==============================================================================
@@ -25,7 +24,10 @@ GradLIME -- lime_base_my.py  (更新版 v2)
 
 【v2 的更新点】
   1. 新增 cam_mode 开关, 三种模式可在同一套代码下直接对比 (服务于消融 A.1):
-       'importance' (默认) : v1 行为, CAM 作用于重要性评分
+       'feature'    : 【论文采用/推荐】CAM 缩放回归输入 S = a (.) Z' (Eq.9)。
+                     300 张消融中忠实性最高 (FaithCorr 0.7222)。
+       'importance': CAM 作用于重要性评分 s = |w|*a (Eq.14)，
+                     拟合仍在二值码上；消融 A.1 对照。
        'feature'           : 论文 Eq.(9) 行为, S = a (.) Z' 进入回归
        'none'              : 忽略 CAM, 退化为原生 LIME (对照组)
   2. segment_cam_activation 默认改用 cv2.resize 上采样 (更快且无 NaN),
@@ -67,7 +69,8 @@ def bilinear_interpolation(input_matrix, output_shape):
     x_new_grid, y_new_grid = np.meshgrid(x_new, y_new)
     points = np.column_stack((x_grid.ravel(), y_grid.ravel()))
     values = input_matrix.ravel()
-    output_matrix = sp.interpolate.griddata(points, values, (x_new_grid, y_new_grid), method='linear')
+    output_matrix = sp.interpolate.griddata(points, values, (x_new_grid, y_new_grid),
+                             method='linear')
     return output_matrix
 
 
@@ -134,7 +137,7 @@ class LimeBase(object):
         """Iteratively adds features to the model.
 
         注意: 该分支不使用 CAM (与原生 LIME 一致)。若需要 CAM 生效,
-        请使用 cam_mode='importance' 触发的 'highest_weights' 分支。
+        请使用 cam_mode='feature' 触发的 'highest_weights' 分支。
         """
         clf = Ridge(alpha=selection_alpha, fit_intercept=True,
                     random_state=self.random_state)
@@ -303,7 +306,7 @@ class LimeBase(object):
                                    cam_map,
                                    feature_selection='auto',
                                    model_regressor=None,
-                                   cam_mode='importance',
+                                   cam_mode='feature',
                                    selection_alpha=0.01,
                                    fit_alpha=1.0,
                                    normalise_cam=True):
@@ -364,7 +367,7 @@ class LimeBase(object):
 
         # ---- 特征选择 --------------------------------------------------
         fs_method = feature_selection
-        if cam_mode == 'importance' and fs_method == 'auto':
+        if cam_mode != 'none' and fs_method == 'auto':
             # 避免 num_features <= 6 时静默退化为无 CAM 的 forward_selection
             fs_method = 'highest_weights'
 
