@@ -409,3 +409,4 @@ class LimeBase(object):
             print('cam_mode:', cam_mode)
             print('CAM activation (per segment):', cam_act)
         return (easy_model.intercept_, exp, prediction_score, local_pred)
+    
