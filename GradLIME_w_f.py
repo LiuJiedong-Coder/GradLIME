@@ -127,7 +127,7 @@ if __name__ == '__main__':
     ####################原始LIME######################################
     from lime import lime_image
     explainer_org = lime_image.LimeImageExplainer()
-    explanation_org = explainer_org.explain_instance(np.array(trans_C(img_pil)), batch_predict, top_labels=1, hide_color=0, num_samples=8000, random_seed=random_seed)
+    explanation_org = explainer_org.explain_instance(np.array(trans_C(img_pil)), batch_predict, top_labels=1, hide_color=0, num_samples=1000, random_seed=random_seed)
 
 
     ###################OurLIME#######################################
@@ -145,7 +145,7 @@ if __name__ == '__main__':
     from lime import lime_image_my
     #explainer = lime_image.LimeImageExplainer()  #源码
     explainer = lime_image_my.LimeImageExplainer()  #个人修改
-    data, labels = explainer.explain_instance_data_label(np.array(trans_C(img_pil)), batch_predict, top_labels=1, hide_color=0, num_samples=8000, random_seed=random_seed)  # batch_predict分类预测函数，num_samples是LIME生成的邻域图像个数
+    data, labels = explainer.explain_instance_data_label(np.array(trans_C(img_pil)), batch_predict, top_labels=1, hide_color=0, num_samples=1000, random_seed=random_seed)  # batch_predict分类预测函数，num_samples是LIME生成的邻域图像个数
     explanation = explainer.explain_instance(grayscale_cam)
     print(f'解释器预测分类{explanation.top_labels}')
     print(f'线性模型特征-权重：{explanation.local_exp}')
@@ -156,7 +156,7 @@ if __name__ == '__main__':
     exp_org_w = list(explanation_org.local_exp.values())[0]
     exp_our_w = list(explanation.local_exp.values())[0]
 
-    n_features = 10  #想要可视化的特征数
+    n_features = 8  #想要可视化的特征数
     seg_rank_end_our = [t[0] for t in explanation.local_exp[explanation.top_labels[0]]]   #线性模型权重大小排序
     # 好的的特征块号
     seg_rank_topn_our = seg_rank_end_our[:n_features]
