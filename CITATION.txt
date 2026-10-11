@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "GradLIME"
+authors:
+  - family-names: "Liu"
+    given-names: "Jiedong"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+license: MIT
+repository-code: "https://github.com/LiuJiedong-Coder/GradLIME"
+url: "https://github.com/LiuJiedong-Coder/GradLIME"
+abstract: "A CNN local interpretation model based on feature gradient activation."
+keywords:
+  - explainable AI
+  - CNN interpretability

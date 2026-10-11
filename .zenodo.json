@@ -1,0 +1,16 @@
+{
+  "title": "GradLIME: A CNN Local Interpretation Model Based on Feature Gradient Activation (Code)",
+  "description": "<p>Official implementation of GradLIME, a CNN local interpretation model based on feature gradient activation. Includes core method, ablation scripts (A1c-A9) and evaluation utilities.</p>",
+  "upload_type": "software",
+  "license": "MIT",
+  "access_right": "open",
+  "creators": [
+    { "name": "Liu, Jiedong", "affiliation": "你的单位英文名", "orcid": "0000-0000-0000-0000" },
+    { "name": "Zhao, Xxx", "affiliation": "你的单位英文名", "orcid": "0000-0000-0000-0000" }
+  ],
+  "keywords": ["explainable AI", "CNN interpretability", "Grad-CAM", "LIME", "saliency map"],
+  "related_identifiers": [
+    { "scheme": "doi", "identifier": "10.21203/rs.3.rs-7004733/v1", "relation": "isSupplementTo", "resource_type": "publication-preprint" },
+    { "scheme": "url", "identifier": "https://github.com/LiuJiedong-Coder/GradLIME", "relation": "isIdenticalTo" }
+  ]
+}
