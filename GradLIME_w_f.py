@@ -6,11 +6,7 @@ import torch
 from PIL import Image
 from torchvision import models, transforms
 from skimage.segmentation import mark_boundaries
-from pytorch_grad_cam import (
-    GradCAM, HiResCAM, ScoreCAM, GradCAMPlusPlus,
-    AblationCAM, XGradCAM, EigenCAM, EigenGradCAM,
-    LayerCAM, FullGrad, GradCAMElementWise
-)
+from pytorch_grad_cam import GradCAM
 from pytorch_grad_cam import GuidedBackpropReLUModel
 from pytorch_grad_cam.utils.image import (
     show_cam_on_image, deprocess_image, preprocess_image
@@ -99,10 +95,6 @@ if __name__ == '__main__':
         "gradcam": GradCAM
     }
 
-    #img_path = 'test_img/cat_dog.jpg'
-    #img_path = 'test_img/both.png'    #eigengradcam，fullgrad效果改进好
-    #img_path = 'test_img/lion_tiger.png'
-    #img_path = 'test_img/bird2.png'
     img_path = 'test_img/ILSVRC2012_val_00002653.JPEG'
 
     img_pil = Image.open(img_path)
@@ -130,21 +122,19 @@ if __name__ == '__main__':
     explanation_org = explainer_org.explain_instance(np.array(trans_C(img_pil)), batch_predict, top_labels=1, hide_color=0, num_samples=1000, random_seed=random_seed)
 
 
-    ###################OurLIME#######################################
+    ###################GradLIME#######################################
     with cam_algorithm(model=model, target_layers=target_layers, use_cuda=True) as cam:
-        #print(cam.activations_and_grads.activations, cam.activations_and_grads.gradients) #(1, 512, 7, 7)
         grayscale_cam = cam(input_tensor=input_tensor, targets=targets, aug_smooth=args.aug_smooth, eigen_smooth=args.eigen_smooth)  # 激活图(1,224,224)
-        grayscale_cam = grayscale_cam[0, :]  #激活图，ndarray(224,224)
+        grayscale_cam = grayscale_cam[0, :]  
 
-        activations = cam.activations_and_grads.activations   #(1, 512, 7, 7), 特征图
-        gradients = cam.activations_and_grads.gradients       #(1, 512, 7, 7), 梯度图
+        activations = cam.activations_and_grads.activations   
+        gradients = cam.activations_and_grads.gradients      
 
 
 
     from lime import lime_image
     from lime import lime_image_my
-    #explainer = lime_image.LimeImageExplainer()  #源码
-    explainer = lime_image_my.LimeImageExplainer()  #个人修改
+    explainer = lime_image_my.LimeImageExplainer()  
     data, labels = explainer.explain_instance_data_label(np.array(trans_C(img_pil)), batch_predict, top_labels=1, hide_color=0, num_samples=1000, random_seed=random_seed)  # batch_predict分类预测函数，num_samples是LIME生成的邻域图像个数
     explanation = explainer.explain_instance(grayscale_cam)
     print(f'解释器预测分类{explanation.top_labels}')

@@ -15,6 +15,18 @@ from . import lime_base_my
 from .wrappers.scikit_image import SegmentationAlgorithm
 
 
+# 个人添加，用于生成0个数不大于n_zero的领域01样本
+def create_matrix(random_state, n_samples, n_features, n_zero):
+    # 初始化一个全1的矩阵
+    matrix = np.ones((n_samples, n_features))
+
+    for i in range(n_samples):
+        # 每行随机选取0~n_zero-1个位置将1替换为0
+        zero_indices = random_state.choice(n_features, size=random_state.randint(n_zero), replace=False)
+        matrix[i, zero_indices] = 0
+
+    return matrix.astype(int)
+
 class ImageExplanation(object):
     def __init__(self, image, segments):
         """Init function.
@@ -137,7 +149,9 @@ class LimeImageExplainer(object):
                          distance_metric='cosine',
                          model_regressor=None,
                          random_seed=None,
-                         progress_bar=True):
+                         progress_bar=True,
+                         detect_task = False
+                        ):
         """Generates explanations for a prediction.
 
         First, we generate neighborhood data by randomly perturbing features
@@ -203,7 +217,9 @@ class LimeImageExplainer(object):
         data, labels = self.data_labels(image, fudged_image, segments,
                                         classifier_fn, num_samples,
                                         batch_size=batch_size,
-                                        progress_bar=progress_bar)
+                                        progress_bar=progress_bar,
+                                        detect_task=detect_task
+                                        )
         self.data = data
         self.labels = labels
         self.image = image
@@ -222,7 +238,6 @@ class LimeImageExplainer(object):
             self.data[0].reshape(1, -1),
             metric=self.distance_metric
         ).ravel()
-        print(f'邻域样本距离: {distances}')
 
         ret_exp = ImageExplanation(self.image, self.segments)
         if self.top_labels:
@@ -241,7 +256,6 @@ class LimeImageExplainer(object):
         # print('成功2\n')
         return ret_exp
 
-
     def data_labels(self,
                     image,
                     fudged_image,
@@ -249,7 +263,9 @@ class LimeImageExplainer(object):
                     classifier_fn,
                     num_samples,
                     batch_size=10,
-                    progress_bar=True):
+                    progress_bar=True,
+                    detect_task = False
+                    ):
         """Generates images and predictions in the neighborhood of this image.
 
         Args:
@@ -269,14 +285,16 @@ class LimeImageExplainer(object):
                 labels: prediction probabilities matrix
         """
         n_features = np.unique(segments).shape[0]
-        print('超像素分割块数:', n_features)
 
         # 得到可解释特征图像，用于黑盒模型输入
-        data = self.random_state.randint(0, 2, num_samples * n_features).reshape((num_samples, n_features))
+        if detect_task:
+            data = create_matrix(self.random_state, num_samples, n_features, 3)  # 个人添加，保留0的个数小于3的样本，进行目标检测时候用
+        else:
+            data = self.random_state.randint(0, 2, num_samples * n_features).reshape((num_samples, n_features))
+
         labels = []
         data[0, :] = 1
         imgs = []
-        my_nb_samples = []  # 记录每个样本的邻域样本数,个人添加，可能造成空间浪费
         rows = tqdm(data) if progress_bar else data
         # 此循环会生成n_samples个带有掩码的样本，作为黑盒模型的输入
         for row in rows:
@@ -287,15 +305,11 @@ class LimeImageExplainer(object):
                 mask[segments == z] = True
             temp[mask] = fudged_image[mask]
             imgs.append(temp)
-            my_nb_samples.append(temp)   #个人添加
             if len(imgs) == batch_size:
                 preds = classifier_fn(np.array(imgs))
                 labels.extend(preds)
                 imgs = []
-
         if len(imgs) > 0:
             preds = classifier_fn(np.array(imgs))
             labels.extend(preds)
-        self.my_nb_samples = my_nb_samples  #个人添加
-
         return data, np.array(labels)

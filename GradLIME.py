@@ -84,7 +84,6 @@ if __name__ == '__main__':
 
     img_pil = Image.open(img_path)
 
-    #model = models.inception_v3(pretrained=True).eval().to(device)
     model = models.resnet18(pretrained=True).eval().to(device)
     #print(model)
 
@@ -103,18 +102,14 @@ if __name__ == '__main__':
 
     with cam_algorithm(model=model, target_layers=target_layers, use_cuda=True) as cam:
 
-        grayscale_cam = cam(input_tensor=input_tensor, targets=targets, aug_smooth=args.aug_smooth, eigen_smooth=args.eigen_smooth)  # cam激活图(1,7,7)
-        # activations = cam.activations_and_grads.activations   #(1, 512, 7, 7), 特征图
-        # gradients = cam.activations_and_grads.gradients       #(1, 512, 7, 7), 梯度图
-        grayscale_cam = grayscale_cam[0, :]  # cam激活图，ndarray(7,7)
+        grayscale_cam = cam(input_tensor=input_tensor, targets=targets, aug_smooth=args.aug_smooth, eigen_smooth=args.eigen_smooth)  
+        grayscale_cam = grayscale_cam[0, :]  
         from torchcam.utils import overlay_mask
         fig_cam = overlay_mask(img_pil, Image.fromarray(grayscale_cam), alpha=0.4)  #alpha越小，原图越淡
 
     from lime import lime_image_my
-    #explainer = lime_image.LimeImageExplainer()  #源码
     explainer = lime_image_my.LimeImageExplainer()  #个人修改
 
-    #explanation = explainer.explain_instance(rgb_img_org, batch_predict, top_labels=5, hide_color=0, num_samples=8000)  # batch_predict分类预测函数，num_samples是LIME生成的邻域图像个数
     data, labels = explainer.explain_instance_data_label(np.array(trans_C(img_pil)), batch_predict, top_labels=1, hide_color=0, num_samples=1000)  # batch_predict分类预测函数，num_samples是LIME生成的邻域图像个数
 
 
