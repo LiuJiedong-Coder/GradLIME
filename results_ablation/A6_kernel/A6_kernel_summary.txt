@@ -1,0 +1,18 @@
+===== A6_kernel =====
+variant                                 corr        sparseness           entropy
+sigma0.25                      0.7807±0.2356     0.6647±0.0669     2.7260±0.1739
+sigma0.75                      0.7789±0.2510     0.6697±0.0676     2.7126±0.1795
+sigma1.5                       0.7780±0.2520     0.6705±0.0677     2.7108±0.1794
+sigma3.0                       0.7763±0.2559     0.6706±0.0676     2.7107±0.1788
+
+--- 配对检验（各变体 vs sigma0.25）---
+variant                   metric           n      diff       d     p_holm          判定
+sigma0.75                 corr           100   -0.0018  -0.032   6.72e-01       无显著差异
+sigma0.75                 sparseness     100   +0.0051  +0.479   2.00e-05 sigma0.75更优
+sigma0.75                 entropy        100   -0.0134  -0.481   3.84e-05 sigma0.75更优
+sigma1.5                  corr           100   -0.0027  -0.046   8.82e-01       无显著差异
+sigma1.5                  sparseness     100   +0.0058  +0.528   4.01e-06  sigma1.5更优
+sigma1.5                  entropy        100   -0.0151  -0.519   7.38e-06  sigma1.5更优
+sigma3.0                  corr           100   -0.0044  -0.065   7.57e-01       无显著差异
+sigma3.0                  sparseness     100   +0.0059  +0.514   5.28e-06  sigma3.0更优
+sigma3.0                  entropy        100   -0.0153  -0.507   1.08e-05  sigma3.0更优

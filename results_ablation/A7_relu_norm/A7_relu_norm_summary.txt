@@ -1,0 +1,18 @@
+===== A7_relu_norm =====
+variant                                 corr        sparseness           entropy
+default                        0.7807±0.2356     0.6647±0.0669     2.7260±0.1739
+no_relu                        0.7784±0.2360     0.6647±0.0670     2.7261±0.1740
+no_normalise                   0.7812±0.2350     0.6646±0.0678     2.7259±0.1764
+abs_cam                        0.7793±0.2378     0.6647±0.0672     2.7259±0.1743
+
+--- 配对检验（各变体 vs default）---
+variant                   metric           n      diff       d     p_holm          判定
+no_relu                   corr           100   -0.0024  -0.104   1.00e+00       无显著差异
+no_relu                   sparseness     100   +0.0000  +0.010   1.00e+00       无显著差异
+no_relu                   entropy        100   +0.0002  +0.020   1.00e+00       无显著差异
+no_normalise              corr           100   +0.0005  +0.012   1.00e+00       无显著差异
+no_normalise              sparseness     100   -0.0000  -0.005   1.00e+00       无显著差异
+no_normalise              entropy        100   -0.0000  -0.002   1.00e+00       无显著差异
+abs_cam                   corr           100   -0.0014  -0.147   5.19e-01       无显著差异
+abs_cam                   sparseness     100   -0.0000  -0.001   6.91e-01       无显著差异
+abs_cam                   entropy        100   -0.0000  -0.004   6.91e-01       无显著差异

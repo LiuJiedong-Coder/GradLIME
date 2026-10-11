@@ -1,0 +1,18 @@
+===== A5_masking =====
+variant                                 corr         aopc_mean      aopc_uniform
+black                          0.7807±0.2356     0.6646±0.2004     0.6646±0.2004
+mean                           0.7235±0.3502     0.5328±0.2303     0.5328±0.2303
+uniform                        0.7284±0.2991     0.5587±0.2312     0.5552±0.2205
+blur                           0.6842±0.3869     0.5003±0.2405     0.5003±0.2405
+
+--- 配对检验（各变体 vs black）---
+variant                   metric           n      diff       d     p_holm          判定
+mean                      corr           100   -0.0573  -0.168   4.03e-01       无显著差异
+mean                      aopc_mean      100   -0.1317  -0.710   1.13e-11     black更优
+mean                      aopc_uniform   100   -0.1317  -0.710   1.13e-11     black更优
+uniform                   corr           100   -0.0523  -0.163   9.47e-02       无显著差异
+uniform                   aopc_mean      100   -0.1059  -0.606   3.95e-09     black更优
+uniform                   aopc_uniform   100   -0.1094  -0.598   4.88e-09     black更优
+blur                      corr           100   -0.0965  -0.247   8.01e-02       无显著差异
+blur                      aopc_mean      100   -0.1642  -0.746   2.10e-12     black更优
+blur                      aopc_uniform   100   -0.1642  -0.746   2.10e-12     black更优
