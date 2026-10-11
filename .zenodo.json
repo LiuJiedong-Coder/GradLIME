@@ -1,16 +1,61 @@
 {
   "title": "GradLIME: A CNN Local Interpretation Model Based on Feature Gradient Activation (Code)",
-  "description": "<p>Official implementation of GradLIME, a CNN local interpretation model based on feature gradient activation. Includes core method, ablation scripts (A1c-A9) and evaluation utilities.</p>",
+  "description": "<p>Official implementation of <strong>GradLIME</strong>, a CNN local interpretation model based on feature gradient activation.</p><p>The repository contains the core GradLIME method, the ablation study scripts (A1c_CAM_mode to A9_RUNTIME), and the evaluation utilities used to produce the results reported in the manuscript.</p><p>Companion preprint: <em>GradLIME: A CNN Local Interpretation Model Based on Feature Gradient Activation</em>, Research Square (under review at Scientific Reports).</p>",
   "upload_type": "software",
   "license": "MIT",
   "access_right": "open",
+  "version": "v1.0.0",
   "creators": [
-    { "name": "Liu, Jiedong", "affiliation": "你的单位英文名", "orcid": "0000-0000-0000-0000" },
-    { "name": "Zhao, Xxx", "affiliation": "你的单位英文名", "orcid": "0000-0000-0000-0000" }
+    {
+      "name": "Zhao, Jinwei",
+      "affiliation": "Xi'an University of Technology"
+    },
+    {
+      "name": "Liu, Jiedong",
+      "affiliation": "Xi'an University of Technology"
+    },
+    {
+      "name": "Shi, Zhenghao",
+      "affiliation": "Xi'an University of Technology"
+    },
+    {
+      "name": "Liu, Yu",
+      "affiliation": "Xi'an University of Technology"
+    },
+    {
+      "name": "Khan, Majid Habib",
+      "affiliation": "Xi'an University of Technology"
+    },
+    {
+      "name": "Wang, Wei",
+      "affiliation": "Xi'an University of Technology"
+    },
+    {
+      "name": "Zhu, Minhui",
+      "affiliation": "Xi’an Polytechnic University"
+    },
+    {
+      "name": "Hei, Xinhong",
+      "affiliation": "Xi'an University of Technology"
+    }
   ],
-  "keywords": ["explainable AI", "CNN interpretability", "Grad-CAM", "LIME", "saliency map"],
+  "keywords": [
+    "explainable AI",
+    "interpretable machine learning",
+    "CNN interpretability",
+  ],
   "related_identifiers": [
-    { "scheme": "doi", "identifier": "10.21203/rs.3.rs-7004733/v1", "relation": "isSupplementTo", "resource_type": "publication-preprint" },
-    { "scheme": "url", "identifier": "https://github.com/LiuJiedong-Coder/GradLIME", "relation": "isIdenticalTo" }
-  ]
+    {
+      "scheme": "doi",
+      "identifier": "10.21203/rs.3.rs-7004733/v1",
+      "relation": "isSupplementTo",
+      "resource_type": "publication-preprint"
+    },
+    {
+      "scheme": "url",
+      "identifier": "https://github.com/LiuJiedong-Coder/GradLIME",
+      "relation": "isIdenticalTo"
+    }
+  ],
+  "notes": "Code repository for the GradLIME manuscript currently under review at Scientific Reports. The related preprint DOI will be updated to the journal DOI once the article is accepted and published."
 }
