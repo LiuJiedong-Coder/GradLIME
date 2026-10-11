@@ -40,11 +40,8 @@ import matplotlib
 matplotlib.use('Agg')            # 无显示环境必须提前设置
 import matplotlib.pyplot as plt
 
-from pytorch_grad_cam import (
-    GradCAM, HiResCAM, ScoreCAM, GradCAMPlusPlus,
-    AblationCAM, XGradCAM, EigenCAM, EigenGradCAM,
-    LayerCAM, FullGrad, GradCAMElementWise
-)
+from pytorch_grad_cam import GradCAM
+
 from skimage.segmentation import mark_boundaries
 
 warnings.filterwarnings('ignore')
@@ -479,11 +476,7 @@ def main():
         return
 
     cam_methods = {
-        "gradcam": GradCAM, "hirescam": HiResCAM, "scorecam": ScoreCAM,
-        "gradcam++": GradCAMPlusPlus, "ablationcam": AblationCAM,
-        "xgradcam": XGradCAM, "eigencam": EigenCAM,
-        "eigengradcam": EigenGradCAM, "layercam": LayerCAM,
-        "fullgrad": FullGrad, "gradcamelementwise": GradCAMElementWise,
+        "gradcam": GradCAM
     }
 
     # ---- 阶段 2：逐模型解释

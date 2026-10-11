@@ -1,26 +1,43 @@
-# Python 环境版本建议
-python==3.8.18
+# =============================================================================
+# GradLIME — Python dependencies
+# Tested with Python 3.8 / 3.9 (see README.md, "Environment setup").
+#
+# IMPORTANT: torch / torchvision must match your CUDA version.
+# The pinned versions below are the ones used in the paper (CUDA 11.8).
+# Install them FIRST with the matching index URL, e.g.:
+#   CUDA 11.8:  pip install torch==2.1.2 torchvision==0.16.2 --index-url https://download.pytorch.org/whl/cu118
+#   CPU only:   pip install torch==2.1.2 torchvision==0.16.2 --index-url https://download.pytorch.org/whl/cpu
+# then install the remaining packages with:  pip install -r requirements.txt
+# =============================================================================
 
-# PyTorch 与 CUDA 版本（确保用户安装正确的 CUDA 匹配版本）
-torch==2.1.2+cu118
-torchvision==0.16.2+cu118
-torchaudio==2.1.2+cu118
-# 可选：可加 index-url 说明，或由用户自行安装对应 CUDA 版本
+# --- Deep learning framework (install first, CUDA-matched, see above) ---
+torch==2.1.2
+torchvision==0.16.2
 
-# 模型可解释性相关库
-lime==0.2.0.1
-torchcam==0.4.0
-grad-cam==1.4.5
-captum==0.7.0
-alibi==0.9.5
-omnixai==1.3.1
-zennit==0.5.1
+# --- Core scientific stack ---
+numpy>=1.24,<2.0
+scipy>=1.10
+pandas>=2.0
+scikit-learn>=1.3
+scikit-image>=0.21
+opencv-python>=4.8
+matplotlib>=3.7
+Pillow>=10.0
+tqdm>=4.66
+cachetools>=5.3
 
-# 数据增强与辅助
-ttach==0.0.3
+# --- Explanation utilities ---
+torchcam==0.4.0        # CAM overlay visualisation used by the demo scripts
+ttach==0.0.3           # test-time augmentation required by the bundled pytorch_grad_cam
+pyDOE2>=1.3.0          # required by the bundled lime package (lime_tabular)
 
-# 深度学习框架（注意版本兼容）
-tensorflow==2.12.0
-
-# 类型注解支持（某些库可能依赖）
-typing-extensions==4.8.0
+# =============================================================================
+# Do NOT install the following from PyPI:
+#   * lime / grad-cam / quantus — this repository bundles MODIFIED copies
+#     (./lime, ./pytorch_grad_cam, ./quantus). The evaluation metrics are
+#     adapted to Quantus 0.5.3 with a unified superpixel-level protocol;
+#     the bundled packages take precedence over any site-packages version
+#     when scripts are run from the repository root.
+#   * tensorflow / keras — only required by quantus.helpers.model.tf_model
+#     (TensorFlow backend), which no script in this repository uses.
+# =============================================================================
